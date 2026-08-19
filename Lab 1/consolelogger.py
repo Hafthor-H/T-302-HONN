@@ -1,7 +1,7 @@
 from logger import Logger
 
 class ConsoleLogger(Logger):
-
+    
         def log_error(self, message: str, exception: Exception) -> None:
             print(f"error: {message}, exception {exception}")
     
