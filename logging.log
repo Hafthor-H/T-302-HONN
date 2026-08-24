@@ -1,0 +1,3 @@
+info: this is an info message
+warning: this is a warning
+error: this is a an error, exception: some weird exception

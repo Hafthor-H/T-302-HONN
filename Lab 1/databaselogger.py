@@ -12,13 +12,15 @@ class DbConfig:
 
 class Databaselogger(Logger):
 
-    CREATE_LOG_TABLE = """CREATE TABLE IF NOT EXIST log(
-    id int,
-    eventlevel varchar,
-    message varchar,
-    exception varchar
-    )"""
-
+    CREATE_LOG_TABLE = """
+    CREATE TABLE IF NOT EXISTS log (
+        id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+        eventlevel VARCHAR,
+        message VARCHAR,
+        exception VARCHAR
+    )
+    """
+    
     def __init__(self, config: DbConfig) -> None:
             self.connection = psycopg2.connect(
             user=config.user,
@@ -34,15 +36,18 @@ class Databaselogger(Logger):
                 with self.connection.cursor() as cur:
                     cur.execute(self.CREATE_LOG_TABLE)
 
-    def _write(self, eventlevel, message, exception=None):
+    def _write(self, event_level, message, exception=None):
         with self.connection:
             with self.connection.cursor() as cur:
                 cur.execute(
                     "INSERT INTO log (eventlevel, message, exception) "
                     "VALUES (%s, %s, %s) RETURNING id",
-                    (eventlevel, message, exception),
+                    (event_level, message, exception),
                 )
                 return cur.fetchone()[0]
+
+    def close(self) -> None:
+        self.connection.close()
 
     def log_error(self, message: str, exception: Exception) -> None:
         self._write("Error",message, str(exception))
