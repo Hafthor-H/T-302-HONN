@@ -7,29 +7,25 @@ class Customer:
     id: str
     debt: float
 
+class CustomerNotFoundException(Exception):
+    def __init__(self, id: str) -> None:
+        super().__init__(f"Customer with id {id} was not found")
 
 class CustomerDebtService:
     def __init__(self) -> None:
         self.__fakeCustomers = [Customer(1, 2), Customer(2, 3), Customer(3, 4)]
 
-    def get_debt_of_customer(self, id: str) -> float | None:
-        try:
-            customer = self.__get_customer(id)
-            return customer.debt
-        except StopIteration:
-            return None
+    def get_debt_of_customer(self, id: str) -> float:
+        self.__get_customer(id).debt
 
-    def set_debt_of_customer(self, id: str, debt: float) -> bool:
-        try:
-            customer = self.__get_customer(id)
-            customer.debt = debt
-            return True
-        except StopIteration:
-            return False
+    def set_debt_of_customer(self, id: str, debt: float) -> None:
+        self.__get_customer(id).debt = debt
 
     def __get_customer(self, id: str) -> Customer:
-        return next((customer for customer in self.__fakeCustomers if customer.id == id))
-
+        customer = next((customer for customer in self.__fakeCustomers if customer.id == id))
+        if customer is None:
+            raise CustomerNotFoundException(id)
+        return customer
 
 def print_debt(customerId: str, debt: float):
     if debt is None:
