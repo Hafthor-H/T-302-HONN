@@ -1,10 +1,9 @@
-from ast import Try
 from dataclasses import dataclass
 
 
 @dataclass
 class Customer:
-    id: str
+    id: int
     debt: float
 
 class CustomerNotFoundException(Exception):
@@ -16,7 +15,10 @@ class CustomerDebtService:
         self.__fakeCustomers = [Customer(1, 2), Customer(2, 3), Customer(3, 4)]
 
     def get_debt_of_customer(self, id: str) -> float:
-        self.__get_customer(id).debt
+        customer_debt = self.__get_customer(id).debt
+        if customer_debt is None:
+            return 0
+        return customer_debt
 
     def set_debt_of_customer(self, id: str, debt: float) -> None:
         self.__get_customer(id).debt = debt
@@ -39,6 +41,7 @@ if __name__ == '__main__':
 
     customer_id = 1
     debt = service.get_debt_of_customer(customer_id)
+
     print_debt(customer_id, debt)
 
     status = service.set_debt_of_customer(customer_id, 10)
