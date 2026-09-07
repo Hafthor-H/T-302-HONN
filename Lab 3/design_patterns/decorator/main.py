@@ -1,3 +1,4 @@
+from ObservableWeatherData import ObservableWeatherData
 from CurrentConditionsDisplay import CurrentConditionsDisplay
 from ForecastDisplay import ForecastDisplay
 from StatisticsDisplay import StatisticsDisplay
@@ -5,7 +6,7 @@ from WeatherData import WeatherData
 from WeatherDataMeasurements import WeatherDataMeasurements
 
 if __name__ == '__main__':
-    weather_data = WeatherData()
+    weather_data = ObservableWeatherData(WeatherData())
     current_conditions_display = CurrentConditionsDisplay()
     statistics_display = StatisticsDisplay()
     forecast_display = ForecastDisplay()
