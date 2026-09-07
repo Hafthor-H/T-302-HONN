@@ -96,3 +96,10 @@ class ShipmentService:
         shipment_method = self.__shipments[package.shipment_type]
         shipment_method.prepare()
         shipment_method.deliver(package)
+
+shipments = {
+    ShipmentType.ship: Ship(),
+    ShipmentType.plane: Plane(),
+    ShipmentType.car: Car(),
+    ShipmentType.carrier_pigeon: CarrierPigeon()
+}
