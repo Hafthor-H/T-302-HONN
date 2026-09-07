@@ -77,6 +77,7 @@ class CarrierPigeon:
     def fly(self, package: Package):
         print(f'beep beep I\'m a bird')
 
+#Ekki aðdáðandi að búa til tilvik að klasa inn í klasa, td ship = Ship()
 
 class ShipmentService:
     def ship(self, package: Package):
