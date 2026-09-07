@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from enum import Enum
-from typing import List
 from abc import ABC, abstractmethod
 
 
@@ -50,49 +49,49 @@ class Package:
 
 class ShipmentMethod(ABC):
     @abstractmethod
-    def deliver(self, package):
+    def deliver(self, package) -> None:
         pass
 
     @abstractmethod
-    def prepare(self):
+    def prepare(self) -> None:
         pass
 
 
 class Ship(ShipmentMethod):
-    def prepare(self):
+    def prepare(self) -> None:
         print('reloading fuel supplies on ship')
 
-    def deliver(self, package: Package):
+    def deliver(self, package: Package) -> None:
         print(f'shipping package via ship from {package.merchant.address} to {package.buyer.address}')
 
 class Plane(ShipmentMethod):
-    def prepare(self):
+    def prepare(self) -> None:
         print('jet fuels can\'t melt steel beams')
 
-    def deliver(self, package: Package):
+    def deliver(self, package: Package) -> None:
         print(f'flying package from {package.merchant.address} to {package.buyer.address}')
 
 
 class Car(ShipmentMethod):
-    def prepare(self):
+    def prepare(self) -> None:
         print('adding gasoline... or diesel')
 
-    def deliver(self, package: Package):
+    def deliver(self, package: Package) -> None:
         print(f'driving package from {package.merchant.address} to {package.buyer.address}')
 
 
 class CarrierPigeon(ShipmentMethod):
-    def prepare(self):
+    def prepare(self) -> None:
         print(f'beep beep I\'m a bird')
 
-    def deliver(self, package: Package):
+    def deliver(self, package: Package) -> None:
         print(f'beep beep I\'m a bird')
 
 class ShipmentService:
     def __init__(self, shipments: dict[ShipmentType, ShipmentMethod]) -> None:
         self.__shipments = shipments
 
-    def ship(self, package: Package):
+    def ship(self, package: Package) -> None:
         shipment_method = self.__shipments[package.shipment_type]
         shipment_method.prepare()
         shipment_method.deliver(package)
