@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
+from abc import ABC, abstractmethod
+
 
 class ShipmentType(Enum):
     plane = 0
@@ -46,57 +48,51 @@ class Package:
     buyer: Person
 
 
-class Ship:
-    def reload_fuel_oil(self):
+class ShipmentMethod(ABC):
+    @abstractmethod
+    def deliver(self, package):
+        pass
+
+    @abstractmethod
+    def prepare(self):
+        pass
+
+
+class Ship(ShipmentMethod):
+    def prepare(self):
         print('reloading fuel supplies on ship')
 
-    def ship(self, package: Package):
+    def deliver(self, package: Package):
         print(f'shipping package via ship from {package.merchant.address} to {package.buyer.address}')
 
-
-class Plane:
-    def reload_jet_fuel(self):
+class Plane(ShipmentMethod):
+    def prepare(self):
         print('jet fuels can\'t melt steel beams')
 
-    def fly(self, package: Package):
+    def deliver(self, package: Package):
         print(f'flying package from {package.merchant.address} to {package.buyer.address}')
 
 
-class Car:
-    def reload_gas(self):
+class Car(ShipmentMethod):
+    def prepare(self):
         print('adding gasoline... or diesel')
 
-    def drive(self, package: Package):
+    def deliver(self, package: Package):
         print(f'driving package from {package.merchant.address} to {package.buyer.address}')
 
 
-class CarrierPigeon:
-    def eat_seeds(self):
+class CarrierPigeon(ShipmentMethod):
+    def prepare(self):
         print(f'beep beep I\'m a bird')
 
-    def fly(self, package: Package):
+    def deliver(self, package: Package):
         print(f'beep beep I\'m a bird')
-
-#Ekki aðdáðandi að búa til tilvik að klasa inn í klasa, td ship = Ship()
 
 class ShipmentService:
+    def __init__(self, shipments: dict[ShipmentType, ShipmentMethod]) -> None:
+        self.__shipments = shipments
+
     def ship(self, package: Package):
-        if package.shipment_type == ShipmentType.ship:
-            ship = Ship()
-            ship.reload_fuel_oil()
-            ship.ship(package)
-
-        elif package.shipment_type == ShipmentType.plane:
-            plane = Plane()
-            plane.reload_jet_fuel()
-            plane.fly(package)
-
-        elif package.shipment_type == ShipmentType.car:
-            car = Car()
-            car.reload_gas()
-            car.drive(package)
-
-        elif package.shipment_type == ShipmentType.carrier_pigeon:
-            pigeon = CarrierPigeon()
-            pigeon.eat_seeds()
-            pigeon.fly(package)
+        shipment_method = self.__shipments[package.shipment_type]
+        shipment_method.prepare()
+        shipment_method.deliver(package)
