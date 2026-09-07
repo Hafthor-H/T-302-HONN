@@ -21,7 +21,6 @@ class WeatherData(IWeatherData, Observable):
     def notify_observers(self) -> None:
             for observer in self.__observers:
                 observer.update(self)
-                print(observer)
 
 
     def set_measurements(self, measurements: WeatherDataMeasurements) -> None:
