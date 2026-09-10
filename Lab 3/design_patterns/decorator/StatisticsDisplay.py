@@ -25,5 +25,5 @@ class StatisticsDisplay(Observer, DisplayElement):
             self.display()
 
     def display(self):
-        print(f"Avg/Max/Min temperature = {float(self.__temperature_sum / self.__num_readings)}/{float(self.__max)}/{float(self.__min)}")
+        print(f"Avg/Max/Min temperature = " f"{self.__temperature_sum / self.__num_readings:.1f}/"f"{self.__max:.1f}/"f"{self.__min:.1f}")
 

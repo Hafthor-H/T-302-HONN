@@ -6,7 +6,7 @@ from WeatherDataMeasurements import WeatherDataMeasurements
 
 class ObservableWeatherData(Observable, IWeatherData):
 
-    def __init__(self, weather_data: IWeatherData):
+    def __init__(self, weather_data):
 
         self.__weather_data = weather_data
 
@@ -15,7 +15,7 @@ class ObservableWeatherData(Observable, IWeatherData):
         self.__weather_data.register_observer(observer)
 
     def remove_observer(self, observer: Observer) -> None:
-        self.__weather_data.remove_observer(observer) 
+        self.__weather_data.remove_observer(observer)
 
     def notify_observers(self) -> None:
         self.__weather_data.notify_observers()
