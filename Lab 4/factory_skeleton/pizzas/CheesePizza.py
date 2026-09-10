@@ -1,6 +1,8 @@
+from Pizza import Pizza
 
+class CheesePizza(Pizza):
+    def __init__(self):
+        super().__init__()
 
-class CheesePizza:
-    pass
-
-
+    def prepare(self):
+        pass
