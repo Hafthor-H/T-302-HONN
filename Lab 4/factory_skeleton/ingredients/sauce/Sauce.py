@@ -1,2 +1,6 @@
+from abc import abstractmethod
+
 class Sauce:
-    pass    
+    @abstractmethod
+    def __str__(self):
+        pass

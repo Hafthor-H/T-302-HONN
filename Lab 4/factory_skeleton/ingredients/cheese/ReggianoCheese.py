@@ -1,5 +1,6 @@
-from ingredients.cheese.Cheese import Cheese
+from .Cheese import Cheese
 
 
 class ReggianoCheese(Cheese):
-    pass
+    def __str__(self):
+        return "ReggianoCheese"

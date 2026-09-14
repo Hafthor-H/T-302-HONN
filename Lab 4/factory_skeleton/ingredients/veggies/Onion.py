@@ -1,5 +1,6 @@
-from ingredients.veggies.Veggies import Veggies
+from .Veggies import Veggies
 
 
 class Onion(Veggies):
-    pass
+    def __str__(self):
+        return "Onion"

@@ -1,2 +1,7 @@
+from abc import abstractmethod
+
 class Veggies:
-    pass
+    @abstractmethod
+    def __str__(self):
+        pass
+    

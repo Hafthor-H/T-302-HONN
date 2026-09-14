@@ -1,5 +1,6 @@
-from ingredients.clams.Clams import Clams
+from .Clams import Clams
 
 
 class FrozenClams(Clams):
-    pass
+    def __str__(self):
+            return "FrozenClams"

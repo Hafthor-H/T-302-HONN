@@ -1,5 +1,6 @@
-from ingredients.sauce.Sauce import Sauce
+from .Sauce import Sauce
 
 
 class MarinaraSauce(Sauce):
-    pass
+    def __str__(self):
+        return "MarinaraSauce"

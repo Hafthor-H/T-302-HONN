@@ -1,5 +1,6 @@
-from ingredients.pepperoni.Pepperoni import Pepperoni
+from .Pepperoni import Pepperoni
 
 
 class SlicedPepperoni(Pepperoni):
-    pass
+    def __str__(self):
+        return "SlicedPepperoni"

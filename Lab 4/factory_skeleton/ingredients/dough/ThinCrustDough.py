@@ -1,5 +1,6 @@
-from ingredients.dough.Dough import Dough
+from .Dough import Dough
 
 
 class ThinCrustDough(Dough):
-    pass
+    def __str__(self):
+        return "ThinCrustDough"

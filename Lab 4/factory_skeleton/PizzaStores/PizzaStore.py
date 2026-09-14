@@ -1,31 +1,13 @@
-from abc import ABC
-from pizzas import *
+from abc import ABC, abstractmethod
+from pizzas import Pizza, PizzaType
 
 class PizzaStore(ABC):
 
-
-    def __init__(self):
+    @abstractmethod
+    def create_pizza(self, pizza_type: PizzaType) -> Pizza:
         pass
 
-
-    
-    def create_pizza(self, pizza_type: PizzaType) -> Pizza:
-
-        pizza: Pizza = None
-
-        if pizza_type is PizzaType.CHEESE:
-            pizza = CheesePizza()
-        elif pizza_type is PizzaType.PEPPERONI:
-            pizza = PepperoniPizza()
-        elif pizza_type is PizzaType.CLAM:
-            pizza = ClamPizza()
-        elif pizza_type is PizzaType.VEGGIE:
-            pizza = VeggiePizza()
-
-        return pizza
-
     def order_pizza(self, pizza_type):
-
         pizza: Pizza = self.create_pizza(pizza_type)
 
         pizza.prepare()
