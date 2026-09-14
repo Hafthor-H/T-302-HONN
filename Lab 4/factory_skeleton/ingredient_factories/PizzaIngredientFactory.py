@@ -1,5 +1,10 @@
 from abc import ABC, abstractmethod
 from ingredients import *
+from ingredients.dough import Dough
+from ingredients.sauce import Sauce
+from ingredients.cheese import Cheese
+from ingredients.pepperoni import Pepperoni
+from ingredients.clams import Clams
 
 class PizzaIngredientFactory(ABC):
 
