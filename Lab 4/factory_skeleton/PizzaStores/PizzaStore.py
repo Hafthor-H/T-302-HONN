@@ -4,6 +4,7 @@ from pizzas import *
 class PizzaStore(ABC):
 
 
+<<<<<<< Updated upstream
     def __init__(self):
         pass
 
@@ -34,3 +35,7 @@ class PizzaStore(ABC):
         pizza.box()
 
         return pizza
+=======
+class PizzaStore:
+    pass
+>>>>>>> Stashed changes
