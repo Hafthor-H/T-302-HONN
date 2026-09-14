@@ -7,7 +7,7 @@ class PizzaStore(ABC):
     def create_pizza(self, pizza_type: PizzaType) -> Pizza:
         pass
 
-    def order_pizza(self, pizza_type):
+    def order_pizza(self, pizza_type) -> Pizza:
         pizza: Pizza = self.create_pizza(pizza_type)
 
         pizza.prepare()
