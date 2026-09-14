@@ -4,7 +4,6 @@ from pizzas import *
 class PizzaStore(ABC):
 
 
-<<<<<<< Updated upstream
     def __init__(self):
         pass
 
