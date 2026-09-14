@@ -11,18 +11,18 @@ class ChicagoStylePizzaStore(PizzaStore):
 
         if pizza_type is PizzaType.CHEESE:
             pizza = CheesePizza(ingredient_factory)
-            pizza._name = 'Chicago Style Cheese Pizza'
+            pizza.set_name('Chicago Style Cheese Pizza')
 
         elif pizza_type is PizzaType.PEPPERONI:
             pizza = PepperoniPizza(ingredient_factory)
-            pizza._name = 'Chicago Style Pepperoni Pizza'
+            pizza.set_name('Chicago Style Pepperoni Pizza')
 
         elif pizza_type is PizzaType.CLAM:
             pizza = ClamPizza(ingredient_factory)
-            pizza._name = 'Chicago Style Clam Pizza'
+            pizza.set_name('Chicago Style Clam Pizza')
 
         elif pizza_type is PizzaType.VEGGIE:
             pizza = VeggiePizza(ingredient_factory)
-            pizza._name = 'Chicago Style Veggie Pizza'
+            pizza.set_name('Chicago Style Veggie Pizza')
 
         return pizza
