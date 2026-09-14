@@ -35,7 +35,3 @@ class PizzaStore(ABC):
         pizza.box()
 
         return pizza
-=======
-class PizzaStore:
-    pass
->>>>>>> Stashed changes
