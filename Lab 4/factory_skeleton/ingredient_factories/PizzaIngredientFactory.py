@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from ingredients import *
-from ingredients.dough import Dough
-from ingredients.sauce import Sauce
-from ingredients.cheese import Cheese
-from ingredients.pepperoni import Pepperoni
-from ingredients.clams import Clams
+from ingredients.dough.Dough import Dough
+from ingredients.sauce.Sauce import Sauce
+from ingredients.cheese.Cheese import Cheese
+from ingredients.pepperoni.Pepperoni import Pepperoni
+from ingredients.clams.Clams import Clams
 
 class PizzaIngredientFactory(ABC):
 
@@ -21,7 +21,7 @@ class PizzaIngredientFactory(ABC):
         pass
 
     @abstractmethod
-    def create_veggies(self) -> Veggies:
+    def create_veggies(self) -> list[Veggies]:
         pass
 
     @abstractmethod
