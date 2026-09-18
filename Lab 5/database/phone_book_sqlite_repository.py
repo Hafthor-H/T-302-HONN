@@ -2,8 +2,10 @@ import sqlite3
 from typing import Optional
 from database.i_phone_book_repository import IPhoneBookRepository
 from phone_book.phone_book_entry import PhoneBookEntry
+from injector import inject
 
 class PhoneBookSqliteRepository(IPhoneBookRepository):
+    @inject
     def __init__(self, connection: sqlite3.Connection) -> None:
         self.__connection = connection
         cursor = self.__connection.cursor()

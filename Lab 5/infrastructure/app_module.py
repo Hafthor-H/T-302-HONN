@@ -1,5 +1,5 @@
 from abc import ABC
-from injector import inject, Injector, Module, provider, Binder, singleton
+from injector import Module, provider, Binder, singleton
 import sqlite3
 from database.phone_book_file_repository import PhoneBookFileRepository
 from database.phone_book_sqlite_repository import PhoneBookSqliteRepository
@@ -12,8 +12,8 @@ class AppModule(Module):
         self.__environment = environment
         self.__file_path = file_path
 
-    @singleton
     @provider
+    @singleton
     def provide_sqlite3_connection(self):
         return sqlite3.connect(self.__file_path)
 
@@ -25,4 +25,4 @@ class AppModule(Module):
         else:
             repo = PhoneBookFake
 
-        binder.bind(IPhoneBookRepository, to=(IPhoneBookRepository,repo))
+        binder.bind(IPhoneBookRepository, to=(IPhoneBookRepository,repo), scope=singleton)

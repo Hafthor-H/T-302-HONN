@@ -16,6 +16,8 @@ from sms.message import Message
 from sms.sms_sender import SmsSender
 from sales_man import SalesMan
 
+from injector import Injector
+from infrastructure.app_module import AppModule
 
 def print_messages(messages: List[Message]):
     for message in messages:
@@ -81,24 +83,26 @@ def main():
     environment = Environment.DEVELOPMENT
 
     # ------------- REPLACE THIS PART WITH DEPENDENCY INJECTION THAT RESOLVES A PHONE BOOK AND THE SALES MEN -------------
-    phone_book = None
-    validator = PhoneNumberValidator()
-    if environment == Environment.DEVELOPMENT:
-        phone_book = PhoneBookFake(validator)
-    else:
-        repository: IPhoneBookRepository = None
-        if environment == Environment.STAGING:
-            repository = PhoneBookFileRepository("phone_book.json")
-        elif environment == Environment.PRODUCTION:
-            connection = sqlite3.connect("phone_book.db")
-            repository = PhoneBookSqliteRepository(connection)
+    # phone_book = None
+    # validator = PhoneNumberValidator()
+    # if environment == Environment.DEVELOPMENT:
+    #     phone_book = PhoneBookFake(validator)
+    # else:
+    #     repository: IPhoneBookRepository = None
+    #     if environment == Environment.STAGING:
+    #         repository = PhoneBookFileRepository("phone_book.json")
+    #     elif environment == Environment.PRODUCTION:
+    #         connection = sqlite3.connect("phone_book.db")
+    #         repository = PhoneBookSqliteRepository(connection)
 
-        phone_book = PhoneBook(repository, validator)
+    #     phone_book = PhoneBook(repository, validator)
 
-    sms_sender = SmsSender()
-    sales_man1 = SalesMan(sms_sender, phone_book)
-    sales_man2 = SalesMan(sms_sender, phone_book)
+    # sms_sender = SmsSender()
+    # sales_man1 = SalesMan(sms_sender, phone_book)
+    # sales_man2 = SalesMan(sms_sender, phone_book)
     # -----------------------------------------------------------------------------------------------------------
+
+    container = Injector(AppModule)
 
     print("\n---------------- failure adding numbers ----------------\n")
     failure_adding_numbers(phone_book)
