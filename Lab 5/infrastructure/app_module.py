@@ -1,6 +1,6 @@
-from abc import ABC
 from injector import Module, provider, Binder, singleton
 import sqlite3
+
 from database.phone_book_file_repository import PhoneBookFileRepository
 from database.phone_book_sqlite_repository import PhoneBookSqliteRepository
 from database.i_phone_book_repository import IPhoneBookRepository
@@ -22,16 +22,11 @@ class AppModule(Module):
     def configure(self, binder: Binder):
         if self.__environment == Environment.PRODUCTION:
             repo = PhoneBookSqliteRepository
-            # book = IPhoneBookRepository
         elif self.__environment == Environment.STAGING:
             repo = PhoneBookFileRepository
-            # repo = PhoneBookFileRepository
-            # book = PhoneBook
         else:
             binder.bind(IPhoneBook, to=PhoneBookFake, scope=singleton)
-            # repo = PhoneBookFake
             return
         binder.bind(IPhoneBook, to=PhoneBook, scope=singleton)
         binder.bind(IPhoneBookRepository, to=repo, scope=singleton)
-        # binder.bind(book, to=repo, scope=singleton)
 

@@ -1,3 +1,4 @@
+from injector import Injector
 from typing import List
 from environment import Environment
 
@@ -6,8 +7,6 @@ from phone_book.phone_book_entry import PhoneBookEntry
 from phone_book.i_phone_book import IPhoneBook
 from sms.message import Message
 from sales_man import SalesMan
-
-from injector import Injector
 from infrastructure.app_module import AppModule
 
 def print_messages(messages: List[Message]):
