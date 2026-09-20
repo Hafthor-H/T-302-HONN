@@ -2,10 +2,11 @@ import json
 from typing import Optional
 from database.i_phone_book_repository import IPhoneBookRepository
 from phone_book.phone_book_entry import PhoneBookEntry
+from environment import Environment
 
 class PhoneBookFileRepository(IPhoneBookRepository):
-    def __init__(self, file_path: str) -> None:
-        self.__file_path = file_path
+    def __init__(self) -> None:
+        self.__file_path = Environment.JSON_DB_FILE.value
         self.__entries = {}
         try:
             with open(self.__file_path, 'r', encoding='utf-8') as file:

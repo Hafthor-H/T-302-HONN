@@ -1,19 +1,10 @@
-import sqlite3
 from typing import List
-
-from database.i_phone_book_repository import IPhoneBookRepository
-from database.phone_book_file_repository import PhoneBookFileRepository
-from database.phone_book_sqlite_repository import PhoneBookSqliteRepository
 from environment import Environment
 
 from phone_book.invalid_number_exception import InvalidNumberException
 from phone_book.phone_book_entry import PhoneBookEntry
 from phone_book.i_phone_book import IPhoneBook
-from phone_book.phone_book import PhoneBook
-from phone_book.phone_book_fake import PhoneBookFake
-from phone_book.phone_number_validator import PhoneNumberValidator
 from sms.message import Message
-from sms.sms_sender import SmsSender
 from sales_man import SalesMan
 
 from injector import Injector
@@ -44,11 +35,10 @@ def failure_adding_numbers(phone_book: IPhoneBook):
 
 def seed_phone_book(phone_book: IPhoneBook):
     phone_book.add(PhoneBookEntry(name="bob", number="1234577"))
-
     phone_book.add(PhoneBookEntry(name="bingo", number="7654321"))
 
 
-def sales_man_one(sales_man: SalesMan, phone_book: PhoneBookFake):
+def sales_man_one(sales_man: SalesMan, phone_book: IPhoneBook):
     sales_man.send_message("bob", "bobby boy")
     sales_man.send_message("bingo", "bingo boy")
 
@@ -80,29 +70,13 @@ def sales_man_two(sales_man: SalesMan):
 
 
 def main():
-    environment = Environment.DEVELOPMENT
+    environment = Environment.PRODUCTION
 
-    # ------------- REPLACE THIS PART WITH DEPENDENCY INJECTION THAT RESOLVES A PHONE BOOK AND THE SALES MEN -------------
-    # phone_book = None
-    # validator = PhoneNumberValidator()
-    # if environment == Environment.DEVELOPMENT:
-    #     phone_book = PhoneBookFake(validator)
-    # else:
-    #     repository: IPhoneBookRepository = None
-    #     if environment == Environment.STAGING:
-    #         repository = PhoneBookFileRepository("phone_book.json")
-    #     elif environment == Environment.PRODUCTION:
-    #         connection = sqlite3.connect("phone_book.db")
-    #         repository = PhoneBookSqliteRepository(connection)
+    container = Injector(AppModule(environment=environment))
 
-    #     phone_book = PhoneBook(repository, validator)
-
-    # sms_sender = SmsSender()
-    # sales_man1 = SalesMan(sms_sender, phone_book)
-    # sales_man2 = SalesMan(sms_sender, phone_book)
-    # -----------------------------------------------------------------------------------------------------------
-
-    container = Injector(AppModule)
+    phone_book = container.get(IPhoneBook)
+    sales_man1 = container.get(SalesMan)
+    sales_man2 = container.get(SalesMan)
 
     print("\n---------------- failure adding numbers ----------------\n")
     failure_adding_numbers(phone_book)
