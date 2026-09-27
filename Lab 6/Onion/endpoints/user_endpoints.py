@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 
 from infrastructure.get_service import get_service
-from services.user_service import UserService
-from dtos.create_user_dto import CreateUserDto
+from core.application.services.user_service import UserService
+from core.application.dtos.create_user_dto import CreateUserDto
 
-from models.user import User
+from core.domain.entities.user import User
 
 router = APIRouter(
     prefix='/users',

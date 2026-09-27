@@ -3,7 +3,7 @@ from typing import Callable
 
 from injector import inject
 from sqlalchemy.orm import Session
-from models.movie import Movie
+from Onion.core.domain.entities.movie import Movie
 
 
 class MovieRepository:

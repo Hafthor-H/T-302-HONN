@@ -3,10 +3,11 @@ from typing import Callable
 
 from injector import inject
 from sqlalchemy.orm import Session
-from models.movie import Movie
+from core.domain.entities.movie import Movie
+from core.application.interfaces.i_movie_repository import IMovieRepository
 
 
-class MovieRepository:
+class MovieRepository(IMovieRepository):
     @inject
     def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]):
         self.__session_factory = session_factory

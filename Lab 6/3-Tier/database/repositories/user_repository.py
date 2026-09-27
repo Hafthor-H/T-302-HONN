@@ -3,7 +3,7 @@ from typing import Callable
 
 from injector import inject
 
-from models.user import User
+from Onion.core.domain.entities.user import User
 from sqlalchemy.orm import Session
 
 

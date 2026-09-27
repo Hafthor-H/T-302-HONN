@@ -3,7 +3,7 @@ from typing import Callable
 
 from injector import inject
 from sqlalchemy.orm import Session
-from models.pricing import Pricing
+from Onion.core.domain.entities.pricing import Pricing
 
 
 class PricingRepository:

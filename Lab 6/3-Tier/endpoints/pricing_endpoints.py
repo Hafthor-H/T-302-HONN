@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 
 from infrastructure.get_service import get_service
-from services.pricing_service import PricingService
-from dtos.create_pricing_dto import CreatePricingDto
+from Onion.core.application.services.pricing_service import PricingService
+from Onion.core.application.dtos.create_pricing_dto import CreatePricingDto
 
-from models.pricing import Pricing
+from Onion.core.domain.entities.pricing import Pricing
 
 router = APIRouter(
     prefix='/pricings',

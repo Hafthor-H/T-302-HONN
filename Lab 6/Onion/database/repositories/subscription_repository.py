@@ -4,12 +4,14 @@ from typing import Callable
 
 from injector import inject
 from sqlalchemy.orm import Session,  joinedload
-from models.pricing import Pricing
-from models.subscription import Subscription
-from models.user import User
+from core.domain.entities.pricing import Pricing
+from core.domain.entities.subscription import Subscription
+from core.domain.entities.user import User
+
+from core.application.interfaces.i_subscription_repository import ISubscriptionRepository
 
 
-class SubscriptionRepository:
+class SubscriptionRepository(ISubscriptionRepository):
     @inject
     def __init__(self, session_factory: Callable[..., AbstractContextManager[Session]]):
         self.__session_factory = session_factory

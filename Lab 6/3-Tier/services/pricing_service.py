@@ -1,6 +1,6 @@
 from injector import inject
 
-from models.pricing import Pricing
+from Onion.core.domain.entities.pricing import Pricing
 from database.repositories.pricing_repository import PricingRepository
 
 

@@ -1,7 +1,7 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey, Date
-from models.pricing import Pricing
-from models.subscription import Subscription
-from models.user import User
+from Onion.core.domain.entities.pricing import Pricing
+from Onion.core.domain.entities.subscription import Subscription
+from Onion.core.domain.entities.user import User
 from database.mappings.mapping import Mapping
 from sqlalchemy.orm import relationship
 

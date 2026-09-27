@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import date
-from models.user import User
-from models.pricing import Pricing
+from Onion.core.domain.entities.user import User
+from Onion.core.domain.entities.pricing import Pricing
 
 
 @dataclass

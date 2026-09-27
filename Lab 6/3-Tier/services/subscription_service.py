@@ -1,8 +1,8 @@
 from injector import inject
 
 from database.repositories.subscription_repository import SubscriptionRepository
-from models.subscription import Subscription
-from services.twilio_gateway_fake import TwilioGatewayFake
+from Onion.core.domain.entities.subscription import Subscription
+from Onion.external.twilio_gateway_fake import TwilioGatewayFake
 
 
 class SubscriptionService:

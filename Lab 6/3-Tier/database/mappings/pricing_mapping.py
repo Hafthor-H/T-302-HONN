@@ -1,5 +1,5 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, ForeignKey
-from models.pricing import Pricing
+from Onion.core.domain.entities.pricing import Pricing
 from database.mappings.mapping import Mapping
 
 

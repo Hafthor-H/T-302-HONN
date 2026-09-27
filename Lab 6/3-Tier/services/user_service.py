@@ -1,6 +1,6 @@
 from injector import inject
 
-from models.user import User
+from Onion.core.domain.entities.user import User
 from database.repositories.user_repository import UserRepository
 
 

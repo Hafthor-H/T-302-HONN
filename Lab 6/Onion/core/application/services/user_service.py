@@ -1,12 +1,11 @@
 from injector import inject
 
-from models.user import User
-from database.repositories.user_repository import UserRepository
-
+from core.domain.entities.user import User
+from core.application.interfaces.i_user_repository import IUserRepository
 
 class UserService:
     @inject
-    def __init__(self, repository: UserRepository):
+    def __init__(self, repository: IUserRepository):
         self.__repository = repository
 
     def get_all(self) -> list[User]:

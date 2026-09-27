@@ -1,7 +1,7 @@
 from injector import inject
 
 from database.repositories.movie_repository import MovieRepository
-from models.movie import Movie
+from Onion.core.domain.entities.movie import Movie
 
 
 class MovieService:

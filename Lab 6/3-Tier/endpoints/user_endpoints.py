@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 
 from infrastructure.get_service import get_service
-from services.user_service import UserService
-from dtos.create_user_dto import CreateUserDto
+from Onion.core.application.services.user_service import UserService
+from Onion.core.application.dtos.create_user_dto import CreateUserDto
 
-from models.user import User
+from Onion.core.domain.entities.user import User
 
 router = APIRouter(
     prefix='/users',

@@ -4,9 +4,9 @@ from typing import Callable
 
 from injector import inject
 from sqlalchemy.orm import Session,  joinedload
-from models.pricing import Pricing
-from models.subscription import Subscription
-from models.user import User
+from Onion.core.domain.entities.pricing import Pricing
+from Onion.core.domain.entities.subscription import Subscription
+from Onion.core.domain.entities.user import User
 
 
 class SubscriptionRepository:
