@@ -1,0 +1,16 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./sqlite_data:/app/sqlite_data
+    depends_on:
+      migration:
+        condition: service_completed_successfully
+
+  migration:
+    build: .
+    command: [ "alembic", "upgrade", "head" ]
+    volumes:
+      - ./sqlite_data:/app/sqlite_data
