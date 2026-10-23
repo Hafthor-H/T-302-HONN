@@ -1,9 +1,13 @@
 import string
 import time
 import random
+import pika
 
 # TODO: RabbitMQ connection logic goes here
 
+# Establishing a connection to the RabbitMQ server
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
 
 def random_log() -> str:
     return ''.join(random.choice(string.ascii_lowercase) for i in range(10))
