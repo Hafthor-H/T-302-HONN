@@ -2,6 +2,8 @@ import string
 import time
 import random
 import pika
+import sys
+import os
 
 # TODO: RabbitMQ connection logic goes here
 
@@ -11,7 +13,9 @@ channel = connection.channel()
 
 
 # Need to make sure the recipient queue exists
-channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
+channel.queue_declare(queue='logger', durable=True, arguments={'x-queue-type': 'quorum'})
+
+
 
 
 
@@ -20,8 +24,19 @@ def random_log() -> str:
 
 
 while True:
-    log_entry = random_log()
-    print(f'Publishing log: {log_entry}')
-    # TODO: publish logs
-    time.sleep(3)
+    try:
+        log_entry = random_log()
+        print(f'Publishing log: {log_entry}')
+        # TODO: publish logs
+        channel.basic_publish(exchange='', routing_key='logger', body=log_entry)
+        time.sleep(3)
+    except KeyboardInterrupt:
+            print('Interrupted')
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
+
+
+connection.close()
 
