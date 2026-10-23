@@ -9,6 +9,12 @@ import pika
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
+
+# Need to make sure the recipient queue exists
+channel.queue_declare(queue='hello', durable=True, arguments={'x-queue-type': 'quorum'})
+
+
+
 def random_log() -> str:
     return ''.join(random.choice(string.ascii_lowercase) for i in range(10))
 
