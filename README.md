@@ -6,7 +6,7 @@ The coursework focuses on software design principles, design patterns, dependenc
 
 ## Authors
 - Hafþór Haugen
-- Guðmundur
+- Guðmundur A. Magnússon
 
 ## Contents
 
