@@ -1,7 +1,11 @@
 version: "3.8"
 services:
   message-api:
-    # TODO
+
+    environment:
+      DB_PATH: /data/messages.db
+    volumes:
+      - messages_data:/data
   
   message-processsor:
     # TODO
@@ -10,4 +14,4 @@ services:
     # TODO
 
 volumes:
-  # TODO
+  messages_data:

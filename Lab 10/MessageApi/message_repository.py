@@ -1,18 +1,42 @@
 import os
-import psycopg2
-from typing import Optional
-
-
+import sqlite3
+from contextlib import closing
 
 
 class MessageRepository:
     def __init__(self):
-        self.create_table()
+        self.db_path = os.getenv('DB_PATH', 'messages.db')
+
+        with closing(sqlite3.connect(self.db_path)) as connection:
+            connection.execute('''
+                CREATE TABLE IF NOT EXISTS messages (
+                    id INTEGER PRIMARY KEY,
+                    message TEXT NOT NULL
+                )
+            ''')
+            connection.commit()
 
         
-    def save_message(self, message) -> int:
-        
+    def save_message(self, message) -> int | None:
+        with closing(sqlite3.connect(self.db_path)) as connection:
+            cursor = connection.execute(
+                'INSERT INTO messages (message) VALUES (?)',
+                (message,)
+            )
+    
+            connection.commit()
+            return cursor.lastrowid
 
-    def get_message(self, id: int) -> str:
-        # TODO: return message with id from storage
-        pass
+    def get_message(self, id: int) -> str | None:
+        with closing(sqlite3.connect(self.db_path)) as connection:
+            cursor = connection.execute(
+                'SELECT message FROM messages WHERE id = ?',
+                (id,)
+            )
+
+            result = cursor.fetchone()
+
+            if result is None:
+                return None
+
+            return result[0]
