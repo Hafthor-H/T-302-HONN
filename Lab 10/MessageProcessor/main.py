@@ -30,4 +30,5 @@ if __name__ == '__main__':
         on_message_callback=callback,
         auto_ack=False
     )
+    print("Waiting for messages... ")
     channel.start_consuming()
