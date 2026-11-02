@@ -14,4 +14,11 @@ class MessageSender:
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         # TODO: create rabbitmq connection
-        pass
+        parameters = pika.ConnectionParameters(
+            host=self.__host,
+            port=5672,
+            credentials=pika.PlainCredentials("guest", "guest"),
+            heartbeat=600,
+            blocked_connection_timeout=300,
+        )
+        return pika.BlockingConnection(parameters)
