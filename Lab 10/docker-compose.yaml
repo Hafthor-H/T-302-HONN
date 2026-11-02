@@ -1,17 +1,34 @@
-version: "3.8"
 services:
   message-api:
-
+    build: ./MessageApi
+    ports:
+      - "8000:8000"
     environment:
       DB_PATH: /data/messages.db
     volumes:
       - messages_data:/data
-  
-  message-processsor:
-    # TODO
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  message-processor:
+    build: ./MessageProcessor
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
 
   rabbitmq:
-    # TODO
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: appuser
+      RABBITMQ_DEFAULT_PASS: devpassword
+    ports:
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
 volumes:
   messages_data:

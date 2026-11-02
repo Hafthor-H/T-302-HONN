@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from contextlib import closing
-
+from typing import Optional
 
 class MessageRepository:
     def __init__(self):
@@ -17,7 +17,7 @@ class MessageRepository:
             connection.commit()
 
         
-    def save_message(self, message) -> int | None:
+    def save_message(self, message) -> int:
         with closing(sqlite3.connect(self.db_path)) as connection:
             cursor = connection.execute(
                 'INSERT INTO messages (message) VALUES (?)',
@@ -27,7 +27,7 @@ class MessageRepository:
             connection.commit()
             return cursor.lastrowid
 
-    def get_message(self, id: int) -> str | None:
+    def get_message(self, id: int) -> Optional[str]:
         with closing(sqlite3.connect(self.db_path)) as connection:
             cursor = connection.execute(
                 'SELECT message FROM messages WHERE id = ?',

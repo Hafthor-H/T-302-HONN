@@ -8,7 +8,13 @@ import sys
 @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
 def get_connection():
     # TODO: create rabbitmq connection
-    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbitmq'))
+    connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='rabbitmq',
+        credentials=pika.PlainCredentials(
+            'appuser',
+            'devpassword'
+        )
+    ))
     channel = connection.channel()
 
     channel.queue_declare(queue='messages', durable=True, arguments={'x-queue-type': 'quorum'})
@@ -22,7 +28,7 @@ if __name__ == '__main__':
 
     def callback(channel, method, properties, body):
         print(body.decode())
-        channel.basic.ack(delivery_tag=method.delivery_tag) # let rabbitmq that message has been processed
+        channel.basic_ack(delivery_tag=method.delivery_tag) # let rabbitmq that message has been processed
 
     # When the message arrives in the queue, the callback function is called
     channel.basic_consume(

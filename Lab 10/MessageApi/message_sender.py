@@ -15,7 +15,7 @@ class MessageSender:
             channel.queue_declare(
                 queue='messages',
                 durable=True,
-                arguments=('x-queue-type', 'quorum')
+                arguments={'x-queue-type': 'quorum'}
             )
 
             channel.basic_publish(
@@ -33,6 +33,12 @@ class MessageSender:
     @retry(pika.exceptions.AMQPConnectionError, delay=5, jitter=(1, 3))
     def __get_connection(self):
         connection = pika.BlockingConnection(
-            pika.ConnectionParameters('rabbitmq')
+            pika.ConnectionParameters(
+        host='rabbitmq',
+        credentials=pika.PlainCredentials(
+            'appuser',
+            'devpassword'
+        )
+    )
         )
         return connection
